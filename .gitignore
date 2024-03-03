@@ -1,0 +1,44 @@
+# Binaries and executables
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Object files, archives, etc.
+*.o
+*.a
+*.obj
+
+# Compiled Go packages
+/pkg/
+
+# Dependency directories (remove these if you're using vendoring)
+/vendor/
+Gopkg.lock
+go.sum
+go.mod
+
+# Editor settings and backup files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+*~
+.DS_Store
+
+# Fyne packaging directories
+/fyne-cross/
+/dist/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project-specific environment variables
+.env
