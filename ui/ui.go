@@ -6,18 +6,18 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 	"github.com/adilJamshad/harvestTime/internal/config"
+	"github.com/adilJamshad/harvestTime/internal/eventManager"
 )
 
-func RunApp() {
-	appConfig, _ := config.LoadConfig("config.json") // Adjust LoadConfig to work with binding.
+func RunApp(eventManager *eventManager.EventManager, appConfig *config.Config) {
 	myApp := app.New()
 	myWindow := myApp.NewWindow("Harvest Time")
 
 	tabs := container.NewAppTabs(
-		container.NewTabItem("Timer", TimerTab(appConfig)), // Convert timer_tab to *widget.TabItem
+		container.NewTabItem("Timer", TimerTab(appConfig, eventManager)), // Convert timer_tab to *widget.TabItem
 		container.NewTabItem("ToDo List", widget.NewLabel("ToDo List Content")),
 		container.NewTabItem("Config", widget.NewLabel("Config Content")),
-		container.NewTabItem("Settings", SettingsTab(appConfig)),
+		container.NewTabItem("Settings", SettingsTab(appConfig, eventManager)),
 	)
 	tabs.SelectIndex(0)
 	myWindow.SetContent(tabs)

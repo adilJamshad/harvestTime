@@ -9,6 +9,7 @@ import (
 	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/widget"
 	"github.com/adilJamshad/harvestTime/internal/config"
+	"github.com/adilJamshad/harvestTime/internal/eventManager"
 )
 
 func handleErr(err error) {
@@ -17,7 +18,7 @@ func handleErr(err error) {
 	}
 }
 
-func SettingsTab(appConfig *config.Config) fyne.CanvasObject {
+func SettingsTab(appConfig *config.Config, event_manager *eventManager.EventManager) fyne.CanvasObject {
 
 	// Create UI elements with data binding.
 	sessionEntry := widget.NewEntryWithData(binding.IntToString(appConfig.SessionTime))
@@ -40,7 +41,7 @@ func SettingsTab(appConfig *config.Config) fyne.CanvasObject {
 		// Persist the updated configuration.
 		err = config.SaveConfig("config.json", appConfig) // Ensure SaveConfig accepts a Config type with bindings.
 		handleErr(err)
-
+		event_manager.Emit(eventManager.ConfigUpdated)
 		fmt.Println("Settings saved successfully.")
 	})
 

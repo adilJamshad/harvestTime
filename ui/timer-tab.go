@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/adilJamshad/harvestTime/internal/config"
+	"github.com/adilJamshad/harvestTime/internal/eventManager"
 	"github.com/adilJamshad/harvestTime/internal/timer" // Adjust this import path to match your project structure
 
 	"fyne.io/fyne/v2"
@@ -13,7 +14,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func TimerTab(appConfig *config.Config) fyne.CanvasObject {
+func TimerTab(appConfig *config.Config, event_manager *eventManager.EventManager) fyne.CanvasObject {
 	sessiontime, _ := appConfig.SessionTime.Get()
 	pomodoroTimer := timer.NewTimer(time.Duration(sessiontime) * time.Minute) // Use a shorter duration for demonstration.
 	timerLabel := widget.NewLabel(fmtDuration(pomodoroTimer.Duration))
@@ -55,6 +56,12 @@ func TimerTab(appConfig *config.Config) fyne.CanvasObject {
 
 	// Initialize the label with the full duration at startup.
 	updateLabel()
+
+	event_manager.Subscribe(eventManager.ConfigUpdated, func() {
+		sessiontime, _ = appConfig.SessionTime.Get()
+		pomodoroTimer = timer.NewTimer(time.Duration(sessiontime) * time.Minute)
+		updateLabel()
+	})
 
 	content := container.NewVBox(
 		timerLabel,
