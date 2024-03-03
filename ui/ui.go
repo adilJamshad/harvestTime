@@ -14,7 +14,7 @@ import (
 
 func RunApp() {
 	myApp := app.New()
-	myWindow := myApp.NewWindow("Pomodoro Timer")
+	myWindow := myApp.NewWindow("Harvest Time")
 
 	pomodoroTimer := timer.NewTimer(25 * time.Minute) // Use a shorter duration for demonstration.
 	timerLabel := widget.NewLabel(fmtDuration(pomodoroTimer.Duration))
