@@ -17,8 +17,6 @@
 # Dependency directories (remove these if you're using vendoring)
 /vendor/
 Gopkg.lock
-go.sum
-go.mod
 
 # Editor settings and backup files
 .vscode/
